@@ -1,9 +1,16 @@
+"Let vim remember the line when reopen
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
 set nocompatible              " be iMproved, required
+set modifiable
 set wildmenu                  " vim 自身命令行模式只能补全
 "set gcr=a:block-blinkon0     " 禁止光标闪烁
 set cursorline                " 高亮显示当前行
 set cursorcolumn              " 高亮显示当前列
 filetype off                  " required
+set backspace=2
 
 " set the runtime path to include Vundle and initialize
  set rtp+=~/.vim/bundle/Vundle.vim
@@ -23,7 +30,7 @@ Plugin 'thinca/vim-quickrun'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'vim-scripts/matchit.zip'
-Plugin 'kshenoy/vim-signature'
+Plugin 'kshenoy/vim-signature'                      "书签工具
 Plugin 'terryma/vim-expand-region'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'bling/vim-airline'
@@ -37,6 +44,8 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'shanzi/autoHEADER'
 Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'derekwyatt/vim-fswitch'                             "switch between .h and .cpp files
+Plugin 'derekwyatt/vim-protodef'                            "C++ definition prototype insert
 "lua plugins
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-lua-ftplugin'
@@ -64,9 +73,42 @@ filetype plugin indent on    " required
 
 let g:ycm_path_to_python_interpreter='/usr/bin/python'
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
+" YCM 补全菜单配色
+" 菜单
+highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
+" 选中项
+highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
+" 补全功能在注释中同样有效
+let g:ycm_complete_in_comments=1
+" 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
+let g:ycm_confirm_extra_conf=0
+" 开启 YCM 标签补全引擎
+let g:ycm_collect_identifiers_from_tags_files=1
+" 引入 C++ 标准库tags
+set tags+=/data/misc/software/vim/stdcpp.tags
+" 从第一个键入字符就开始罗列匹配项
+let g:ycm_min_num_of_chars_for_completion=1
+" 禁止缓存匹配项，每次都重新生成匹配项
+let g:ycm_cache_omnifunc=0
+" 语法关键字补全         
+let g:ycm_seed_identifiers_with_syntax=1
 nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
+
+"ycm generator shortcut
+"nmap <leader>gy :YcmGenrateConfig<cr>
+
+"cpp enhance highlight
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+let g:cpp_concepts_highlight = 1
+
+" C++ 自动生成模板
+" 设置 pullproto.pl 脚本路径
+let g:protodefprotogetter='~/.vim/bundle/vim-protodef/pullproto.pl'
+" 成员函数的实现顺序与声明顺序一致
+let g:disable_protodef_sorting=1
 
 set nu
 set mouse=a
@@ -112,7 +154,8 @@ set foldenable
 " " syntax    使用语法定义折叠
 " " diff      对没有更改的文本进行折叠
 " " marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
-set foldmethod=indent
+"set foldmethod=indent
+set foldmethod=syntax
 set foldlevel=99
 " 代码折叠自定义快捷键
 let g:FoldMethod = 0
@@ -232,11 +275,6 @@ colorscheme jellybeans
 "set guioptions-=r " Removes right hand scroll bar
 "set go-=L " Removes left hand scroll bar"
 
-"Let vim remember the line when reopen
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-
 map <F8> :NERDTreeToggle<CR>
 nmap <F9> :TagbarToggle<CR>
 
@@ -305,3 +343,28 @@ let g:autoHEADER_fill_char_repeat=80
 
 "lua settings
 let g:lua_compiler_name = '/usr/local/bin/luajit'
+
+
+let g:SignatureMap = {
+        \ 'Leader'             :  "m",
+        \ 'PlaceNextMark'      :  "m,",
+        \ 'ToggleMarkAtLine'   :  "m.",
+        \ 'PurgeMarksAtLine'   :  "m-",
+        \ 'DeleteMark'         :  "dm",
+        \ 'PurgeMarks'         :  "mda",
+        \ 'PurgeMarkers'       :  "m<BS>",
+        \ 'GotoNextLineAlpha'  :  "']",
+        \ 'GotoPrevLineAlpha'  :  "'[",
+        \ 'GotoNextSpotAlpha'  :  "`]",
+        \ 'GotoPrevSpotAlpha'  :  "`[",
+        \ 'GotoNextLineByPos'  :  "]'",
+        \ 'GotoPrevLineByPos'  :  "['",
+        \ 'GotoNextSpotByPos'  :  "mn",
+        \ 'GotoPrevSpotByPos'  :  "mp",
+        \ 'GotoNextMarker'     :  "[+",
+        \ 'GotoPrevMarker'     :  "[-",
+        \ 'GotoNextMarkerAny'  :  "]=",
+        \ 'GotoPrevMarkerAny'  :  "[=",
+        \ 'ListLocalMarks'     :  "ms",
+        \ 'ListLocalMarkers'   :  "m?"
+        \ }
