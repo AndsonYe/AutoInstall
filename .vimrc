@@ -3,6 +3,10 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set termencoding=utf-8
+set encoding=utf-8
+set guicursor+=n-v-c:blinkon0 "stop cursor from blink
 set nocompatible              " be iMproved, required
 set modifiable
 set wildmenu                  " vim 自身命令行模式只能补全
@@ -39,7 +43,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'majutsushi/tagbar'
 Plugin 'hdima/python-syntax'
-Plugin 'kevinw/pyflakes-vim'
+"Plugin 'kevinw/pyflakes-vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'shanzi/autoHEADER'
@@ -111,7 +115,7 @@ let g:protodefprotogetter='~/.vim/bundle/vim-protodef/pullproto.pl'
 let g:disable_protodef_sorting=1
 
 set nu
-set mouse=a
+set mouse=v
 set history=2000
 set autoread
 set noswapfile
