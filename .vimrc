@@ -3,11 +3,9 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-set undodir=~/.vim/undodir
-call system('mkdir ' . '~/.vim/undodir')
-set undofile
-set hidden
-
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set termencoding=utf-8
+set encoding=utf-8
 set guicursor+=n-v-c:blinkon0 "stop cursor from blink
 set nocompatible              " be iMproved, required
 set modifiable
@@ -117,7 +115,7 @@ let g:protodefprotogetter='~/.vim/bundle/vim-protodef/pullproto.pl'
 let g:disable_protodef_sorting=1
 
 set nu
-set mouse=a
+set mouse=v
 set history=2000
 set autoread
 set noswapfile
