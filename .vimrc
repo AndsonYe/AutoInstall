@@ -3,6 +3,12 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
+set undodir=~/.vim/undodir
+call system('mkdir ' . '~/.vim/undodir')
+set undofile
+set hidden
+
+set guicursor+=n-v-c:blinkon0 "stop cursor from blink
 set nocompatible              " be iMproved, required
 set modifiable
 set wildmenu                  " vim 自身命令行模式只能补全
@@ -39,7 +45,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'majutsushi/tagbar'
 Plugin 'hdima/python-syntax'
-Plugin 'kevinw/pyflakes-vim'
+"Plugin 'kevinw/pyflakes-vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'shanzi/autoHEADER'
@@ -176,6 +182,7 @@ set autoindent    " 打开自动缩进
 set tabstop=4     " 设置Tab键的宽度        [等同的空格个数]
 set shiftwidth=4  " 每一次缩进对应的空格数
 set softtabstop=4 " 按退格键时可以一次删掉 4 个空格
+autocmd Filetype cpp,cc,c  setlocal ts=2 sts=2 sw=2
 set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop 按退格键时可以一次删掉 4 个空格
 set expandtab     " 将Tab自动转化成空格    [需要输入真正的Tab键时，使用 Ctrl+V + Tab]
 set shiftround    " 缩进时，取整 use multiple of shiftwidth when indenting with '<' and '>'
