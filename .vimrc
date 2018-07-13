@@ -75,8 +75,13 @@ filetype plugin indent on    " required
 "
 " "YouCompleteMe setting
 
+<<<<<<< HEAD
 let g:ycm_path_to_python_interpreter='/usr/local/bin/python3'
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
+=======
+let g:ycm_path_to_python_interpreter='/usr/bin/python'
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+>>>>>>> eaf6a345be1c9fc61a61cdd62629a61c7573a956
 " YCM 补全菜单配色
 " 菜单
 highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
@@ -180,7 +185,11 @@ set autoindent    " 打开自动缩进
 set tabstop=4     " 设置Tab键的宽度        [等同的空格个数]
 set shiftwidth=4  " 每一次缩进对应的空格数
 set softtabstop=4 " 按退格键时可以一次删掉 4 个空格
+<<<<<<< HEAD
 "autocmd Filetype cpp,cc,c  setlocal ts=2 sts=2 sw=2
+=======
+" autocmd Filetype cpp,cc,c  setlocal ts=2 sts=2 sw=2
+>>>>>>> eaf6a345be1c9fc61a61cdd62629a61c7573a956
 set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop 按退格键时可以一次删掉 4 个空格
 set expandtab     " 将Tab自动转化成空格    [需要输入真正的Tab键时，使用 Ctrl+V + Tab]
 set shiftround    " 缩进时，取整 use multiple of shiftwidth when indenting with '<' and '>'
