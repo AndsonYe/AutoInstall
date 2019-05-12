@@ -8,7 +8,7 @@ if has("autocmd")
   autocmd bufnewfile *.c,*.cpp,*.h,*.hpp exe "1," . 10 . "g/CONTACT:.*/s//CONTACT:        yangangye@tencent.com"
   autocmd Bufwritepre,filewritepre *.c,*.cpp,*.h,*.hpp execute "normal ma"
   autocmd Bufwritepre,filewritepre *.c,*.cpp,*.h,*.hpp exe "1," . 10 . "g/LAST MODIFIED:.*/s/LAST MODIFIED:.*/LAST MODIFIED:" .strftime("%c")
-    autocmd bufwritepost,filewritepost *.c,*.cpp,*.h,*.hpp execute "normal `a"`"
+  autocmd bufwritepost,filewritepost *.c,*.cpp,*.h,*.hpp execute "normal `a"
 endif
 
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
