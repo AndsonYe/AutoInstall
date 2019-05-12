@@ -1,6 +1,14 @@
 "Let vim remember the line when reopen
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+  autocmd bufnewfile *.c,*.cpp,*.h,*.hpp so /root/.vim/c_header.txt
+  autocmd bufnewfile *.c,*.cpp,*.h,*.hpp exe "1," . 10 . "g/FILENAME:.*/s//FILENAME: " .expand("%")
+  autocmd bufnewfile *.c,*.cpp,*.h,*.hpp exe "1," . 10 . "g/AUTHORS:.*/s//AUTHORS:        Ye Yangang"
+  autocmd bufnewfile *.c,*.cpp,*.h,*.hpp exe "1," . 10 . "g/START DATE:.*/s//START DATE:     " .strftime("%d-%m-%Y")
+  autocmd bufnewfile *.c,*.cpp,*.h,*.hpp exe "1," . 10 . "g/CONTACT:.*/s//CONTACT:        yangangye@tencent.com"
+  autocmd Bufwritepre,filewritepre *.c,*.cpp,*.h,*.hpp execute "normal ma"
+  autocmd Bufwritepre,filewritepre *.c,*.cpp,*.h,*.hpp exe "1," . 10 . "g/LAST MODIFIED:.*/s/LAST MODIFIED:.*/LAST MODIFIED:" .strftime("%c")
+    autocmd bufwritepost,filewritepost *.c,*.cpp,*.h,*.hpp execute "normal `a"`"
 endif
 
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
@@ -11,8 +19,8 @@ set nocompatible              " be iMproved, required
 set modifiable
 set wildmenu                  " vim 自身命令行模式只能补全
 "set gcr=a:block-blinkon0     " 禁止光标闪烁
-set cursorline                " 高亮显示当前行
-set cursorcolumn              " 高亮显示当前列
+"set cursorline                " 高亮显示当前行
+"set cursorcolumn              " 高亮显示当前列
 filetype off                  " required
 set backspace=2
 
@@ -75,13 +83,8 @@ filetype plugin indent on    " required
 "
 " "YouCompleteMe setting
 
-<<<<<<< HEAD
-let g:ycm_path_to_python_interpreter='/usr/local/bin/python3'
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
-=======
 let g:ycm_path_to_python_interpreter='/usr/bin/python'
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
->>>>>>> eaf6a345be1c9fc61a61cdd62629a61c7573a956
 " YCM 补全菜单配色
 " 菜单
 highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
@@ -185,11 +188,7 @@ set autoindent    " 打开自动缩进
 set tabstop=4     " 设置Tab键的宽度        [等同的空格个数]
 set shiftwidth=4  " 每一次缩进对应的空格数
 set softtabstop=4 " 按退格键时可以一次删掉 4 个空格
-<<<<<<< HEAD
-"autocmd Filetype cpp,cc,c  setlocal ts=2 sts=2 sw=2
-=======
 " autocmd Filetype cpp,cc,c  setlocal ts=2 sts=2 sw=2
->>>>>>> eaf6a345be1c9fc61a61cdd62629a61c7573a956
 set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop 按退格键时可以一次删掉 4 个空格
 set expandtab     " 将Tab自动转化成空格    [需要输入真正的Tab键时，使用 Ctrl+V + Tab]
 set shiftround    " 缩进时，取整 use multiple of shiftwidth when indenting with '<' and '>'
@@ -272,15 +271,15 @@ function! AutoSetFileHead()
 endfunc
 
 " theme主题
- "set background=dark
+"set background=dark
  set t_Co=256
 "colorscheme sexy-railscasts
 "colorscheme vividchalk
 "colorscheme railscasts
 "colorscheme molokai
-"colorscheme blackboard
+colorscheme blackboard
 "colorscheme codeschool
-colorscheme jellybeans
+"colorscheme jellybeans
 
 "codeschool color config
 "set guifont=Monaco:h12
@@ -356,7 +355,7 @@ let g:autoHEADER_default_author="Ye Yangang"
 let g:autoHEADER_fill_char_repeat=80
 
 "lua settings
-let g:lua_compiler_name = '/usr/local/bin/luajit'
+let g:lua_compiler_name = '/usr/bin/luajit'
 
 
 let g:SignatureMap = {
@@ -382,4 +381,5 @@ let g:SignatureMap = {
         \ 'ListLocalMarks'     :  "ms",
         \ 'ListLocalMarkers'   :  "m?"
         \ }
-set clipboard=unnamed
+
+
