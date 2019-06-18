@@ -95,7 +95,31 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias ipython='python -m IPython'
+alias mysql='/usr/local/Cellar/mysql-client/5.7.23/bin/mysql'
 export PYTHONPATH=$HOME/github/caffe/python:$PYTHONPATH
 export COPYFILE_DISABLE=true
-export LC_ALL=en_US.UTF-8  
+export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+export PATH=/usr/local/Cellar/mysql@5.7/5.7.23/bin/:$PATH
+export PATH=$HOME/go/bin:$PATH
+
+# avoid python multiprocessing bug
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+if [ $commands[xdist] ]; then
+    source <(xdist completion zsh)
+fi
+
+export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+source <(kubectl completion zsh)
+
+listening() {
+    if [ $# -eq 0 ]; then
+        sudo lsof -iTCP -sTCP:LISTEN -n -P
+    elif [ $# -eq 1 ]; then
+        sudo lsof -iTCP -sTCP:LISTEN -n -P | grep -i --color $1
+    else
+        echo "Usage: listening [pattern]"
+    fi
+}
